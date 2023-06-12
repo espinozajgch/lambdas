@@ -8,6 +8,7 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -49,7 +50,59 @@ public class LamdasApplication {
 		solution(arr);
 		System.out.println("------------------------------------------------");
 		new Thread(() -> System.out.println("Java lambdas")).start();
+		System.out.println("------------------------------------------------");
+		optional();
 
+	}
+
+	static void optional(){
+		Stream<String> streamvacio = Stream.empty();
+
+		Stream<String> streamNoVacio = Stream.of("pepe","pepita");
+
+		String resultado = streamvacio.findFirst().orElse("vacio");
+		System.out.println("Optional stream vacio: " + resultado);
+
+		String resultado2 = streamNoVacio.findFirst().orElse("vacio");
+		System.out.println("Optional stream no vacio: " + resultado);
+
+		Optional<String> emptyOptional = Optional.empty();
+
+		String valor = "Hola";
+		Optional<String> optionalValor = Optional.of(valor);
+
+		String valorNull = null;
+		Optional<String> optionalValorNull = Optional.ofNullable(valorNull);
+
+		Optional<String> optionalValorHola = Optional.of("Hola");
+		String valorOpcional = optionalValor.get();
+
+		Optional<String> optionalValorNull2 = Optional.ofNullable(null);
+		String valorPredertiminado = optionalValor.orElse("Valor predeterminado");
+
+		Optional<String> optionalValor2 = Optional.ofNullable(null);
+		String valor2 = optionalValor.orElseGet(() -> obtenerValorPredeterminado());
+
+		Optional<String> optionalValor3 = Optional.ofNullable(null);
+		//String valor3 = optionalValor.orElseThrow(() -> new ValorAusenteException("Valor no encontrado"));
+
+		Optional<String> optionalValor4 = Optional.of("Hola");
+		optionalValor.ifPresent(valor4 -> System.out.println("El valor es: " + valor));
+
+		Optional<String> optionalValor5 = Optional.of("10");
+		Optional<Integer> optionalEntero = optionalValor.map(Integer::parseInt);
+
+		Optional<String> optionalValor6 = Optional.of("10");
+		Optional<Integer> optionalEntero6 = optionalValor.flatMap(valor6 -> parsearEntero(valor));
+	}
+
+	private static Optional<? extends Integer> parsearEntero(String valor) {
+		return Optional.empty();
+	}
+
+
+	private static String obtenerValorPredeterminado() {
+		return "Valor predeterminado";
 	}
 
 	static void funcionesAnonimas(){
